@@ -10,6 +10,7 @@ import {
 import RouteNavItem from './components/RouteNavItem';
 import { CognitoUserPool, } from 'amazon-cognito-identity-js';
 import config from './config.js';
+import AWS from 'aws-sdk';
 
 class App extends Component {
     constructor(props) {
@@ -76,6 +77,10 @@ class App extends Component {
 
         if (currentUser !== null) {
             currentUser.signOut();
+        }
+
+        if (AWS.config.credentials) {
+            AWS.config.credentials.clearCachedId();
         }
 
         this.updateUserToken(null);
